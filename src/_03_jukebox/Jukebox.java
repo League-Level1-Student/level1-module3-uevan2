@@ -1,4 +1,8 @@
 package _03_jukebox;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /*
  *    Copyright (c) The League of Amazing Programmers 2013-2019
  *    Level 1
@@ -12,7 +16,10 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -20,10 +27,26 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
+public class Jukebox implements Runnable, ActionListener {
 
+	Song a = new Song("song.mp3");
+	
     public void run() {
 
+    	a.play();
+    	JFrame w = new JFrame("Jukebox");
+    	JPanel x = new JPanel();
+    	JButton y1 = new JButton("Stop");
+    	JButton y2 = new JButton("Stop");
+    	JButton y3 = new JButton("Stop");
+    	JButton y4 = new JButton("Stop");
+    	
+    	w.add(x);
+    	x.add(y1);
+    	w.pack();
+    	w.setVisible(true);
+    	y1.addActionListener(this);
+    	
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
 
@@ -44,6 +67,13 @@ public class Jukebox implements Runnable {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		a.stop();
 	}
 
 }
