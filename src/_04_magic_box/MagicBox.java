@@ -33,7 +33,9 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	 *    or the color of the image, then decide what action the Media Palace should take in each case. 
 	 *     backgroundImage.getRGB(e.getX(), e.getY()) will give you the color of the current pixel.
 	 */
-
+	
+	MediaPalace a = new MediaPalace();
+	
 	BufferedImage backgroundImage;
 
 
@@ -54,6 +56,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		frame.addMouseListener(this);
 	}
 
 	private void loadBackgroundImage() throws Exception {
@@ -73,7 +76,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		a.speak("ÔÂ˜¨ÁÏˆ¨Çˇ¨◊Ç◊◊ Â◊¨ˇÁ¨ÁÒ¨U&^^%˚¥˚¨¥¬∆¨çˆ¥˚ˆ¨˙√Òˆ◊Ò");
 	}
 
 	@Override
@@ -91,13 +94,13 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		a.speak("creeper");
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		a.speak("awwwwwwwwwwwwwwwwwwwwwwwwwwwwww man");
 	}
 
 }
