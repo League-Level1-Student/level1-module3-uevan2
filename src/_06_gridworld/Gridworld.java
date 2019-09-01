@@ -42,6 +42,14 @@ public class Gridworld {
 		x.add(location2, flower0);
 		x.add(location3, flower1);
 		
+		int flowerAdd =2;
+		
+		for(int i1=0; i1<=97; i1++){
+			
+			x.add(x.getRandomEmptyLocation(), new Flower());
+				
+			
+		}
 	}
 }
 
