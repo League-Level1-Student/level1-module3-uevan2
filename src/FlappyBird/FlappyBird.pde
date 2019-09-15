@@ -10,6 +10,9 @@ int pipeTwoX = 2700;
 int pipeTwoY = (int)random(300, 800);
 int pipeThreeX = 3400;
 int pipeThreeY = (int)random(300, 800);
+int flapDelay = 0;
+boolean gameOver = false;
+int score = 0;
 
 import ddf.minim.*;
 Minim minim;
@@ -19,11 +22,15 @@ AudioSample sound;
 void setup(){
   size(1920, 1080);
   minim = new Minim (this);
-  sound = minim.loadSample("flap2.wav", 128);
+  sound = minim.loadSample("flap.mp3", 128);
 }
 
 void draw(){
   background(#62DEFF);
+  
+  //ground
+  fill(5, 90, 5);
+  rect(0, 1000, 1920, 60);
   
   //body
   fill(#FFE51A);
@@ -44,11 +51,20 @@ void draw(){
   ellipse(x+22, y-12, 2, 2);
   ellipse(x+30, y-12, 2, 2);
   
-  if(mousePressed){
+  if(flapDelay>0){
+    flapDelay--;
+  }
+  else {
+    flapDelay=0;
+  }
+  //flap mechanic
+  if(mousePressed&&flapDelay==0){
     
-    birbVelocity= 30;
+    birbVelocity= 35;
     
-    sound.trigger();
+    
+      sound.trigger();
+      flapDelay=flapDelay+20;
     
     if (wingFlap){
       wingFlap=false;
@@ -106,9 +122,53 @@ void draw(){
   if(birbVelocity>0){
     birbVelocity--;
   }
-  
+ //falling mechanic
   y=y+gravity;
   y=y-birbVelocity;
+ //score
+ fill(255, 255, 255);
+ stroke(0, 0, 0);
+ textSize(150);
+ text(score , 960, 200);
  
+ if(x==pipeOneX){
+   score++;
+ }
+ else if(x==pipeTwoX){
+   score++;
+ }
+ else if(x==pipeThreeX){
+   score++;
+ }
+ //gameover mechanic
+ if(intersectsPipes()){
+   gameOver=true;
+ }
+ if(gameOver==true){
+   fill(0, 0, 0);
+   rect(0, 0, 1920, 1080);
+   fill(130, 0, 0);
+   text("Game Over!" , 960, 200);
+ }
 }
+
+boolean intersectsPipes() { 
+        if (y > pipeOneY+125 && x > pipeOneX-75 && x < (pipeOneX+75)){
+            return true; }
+        else if (y<pipeOneY-125 && x > pipeOneX-75 && x < (pipeOneX+75)) {
+            return true; }
+        else if (y>pipeTwoY+125 && x > pipeTwoX-75 && x < (pipeTwoX+75)) {
+            return true; }
+        else if (y<pipeTwoY-125 && x > pipeTwoX-75 && x < (pipeTwoX+75)) {
+            return true; }
+        else if (y>pipeThreeY+125 && x > pipeThreeX-75 && x < (pipeThreeX+75)) {
+            return true; }
+        else if (y<pipeThreeY-125 && x > pipeThreeX-75 && x < (pipeThreeX+75)) {
+            return true; }
+        else if (y > 905){
+            return true; }
+        else { return false; }
+}
+
+
  
